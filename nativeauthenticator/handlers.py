@@ -28,7 +28,10 @@ class SignUpHandler(LocalBase):
     """Render the sign in page."""
     async def get(self):
         self._register_template_path()
-        html = self.render_template('signup.html')
+        html = self.render_template(
+            'signup.html',
+            ask_email=self.authenticator.ask_email_on_signup,
+        )
         self.finish(html)
 
     def get_result_message(self, message_type):
@@ -60,6 +63,7 @@ class SignUpHandler(LocalBase):
 
         html = self.render_template(
             'signup.html',
+            ask_email=self.authenticator.ask_email_on_signup,
             result_message=result_message,
             alert=alert
         )
